@@ -1,0 +1,63 @@
+<Window x:Class="WpfArraysApp.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="{StaticResource AppTitle}" Height="600" Width="1000"
+        WindowStartupLocation="CenterScreen">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Padding="8" BorderThickness="1" BorderBrush="#CCC" CornerRadius="4">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="{StaticResource SearchLabel}" />
+                    <TextBox Width="180"
+                             Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <TextBlock Text="{StaticResource SearchFieldLabel}" />
+                    <ComboBox Width="150"
+                              ItemsSource="{Binding SearchFieldOptions}"
+                              SelectedItem="{Binding SelectedSearchField}"
+                              DisplayMemberPath="DisplayName" />
+
+                    <TextBlock Text="{StaticResource StatusFilterLabel}" />
+                    <ComboBox Width="150"
+                              ItemsSource="{Binding StatusFilterOptions}"
+                              SelectedItem="{Binding SelectedStatusFilter}"
+                              DisplayMemberPath="DisplayName" />
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Button Content="{StaticResource AddButton}" Command="{Binding AddCommand}" />
+                    <Button Content="{StaticResource EditButton}" Command="{Binding EditCommand}" />
+                    <Button Content="{StaticResource DeleteButton}" Command="{Binding DeleteCommand}" />
+                    <Button Content="{StaticResource ClearFiltersButton}" Command="{Binding ClearFiltersCommand}" />
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <DataGrid Grid.Row="1" Margin="0,10,0,0"
+                  AutoGenerateColumns="False"
+                  ItemsSource="{Binding CarsView}"
+                  SelectedItem="{Binding SelectedCar}"
+                  IsReadOnly="True"
+                  CanUserAddRows="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="{StaticResource IdHeader}" Binding="{Binding Id}" Width="60" />
+                <DataGridTextColumn Header="{StaticResource BrandHeader}" Binding="{Binding Brand}" Width="*" />
+                <DataGridTextColumn Header="{StaticResource ModelHeader}" Binding="{Binding Model}" Width="*" />
+                <DataGridTextColumn Header="{StaticResource YearHeader}" Binding="{Binding Year}" Width="90" />
+                <DataGridTextColumn Header="{StaticResource PriceHeader}" Binding="{Binding PriceDisplay}" Width="120" />
+                <DataGridTextColumn Header="{StaticResource FuelTypeHeader}" Binding="{Binding FuelType}" Width="120" />
+                <DataGridTextColumn Header="{StaticResource StatusHeader}" Binding="{Binding Status}" Width="120" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>
