@@ -149,7 +149,7 @@ public class MainViewModel : NotifyPropertyChangedBase
 
     private void RefreshFilter()
     {
-        _carsView.Refresh();
+        _carsView?.Refresh();
     }
 
     private void AddCar()
